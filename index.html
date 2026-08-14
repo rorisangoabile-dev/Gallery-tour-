@@ -1,21 +1,359 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Little World ♡</title>
-
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Mono:wght@300;400&family=Parisienne&display=swap');
 
-/* =====================================================
+:root{
+  --cream:#f8f2e8;--paper:#fffaf0;--pink:#d9a6ad;
+  --darkpink:#9d6570;--brown:#6d584c;--ink:#453c38;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:"Cormorant Garamond",serif;overflow-x:hidden}
 
-   FONTS
+/* WHITE LACE BORDER */
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;
+  border:14px solid white;
+  box-shadow:inset 0 0 0 3px #eee8df,inset 0 0 18px rgba(80,60,50,.12)
+}
+body:after{
+  content:"";position:fixed;inset:4px;pointer-events:none;z-index:9998;
+  background-image:radial-gradient(circle,white 2px,transparent 3px);
+  background-size:13px 13px;opacity:.8
+}
 
-==========================
+/* FLOATING FLOWERS */
+.flower{position:fixed;z-index:5;pointer-events:none;opacity:.55;animation:float 16s linear infinite}
+.f1{left:8%;font-size:22px}.f2{left:25%;animation-delay:3s}
+.f3{left:62%;animation-delay:1s}.f4{left:83%;animation-delay:5s}
+.f5{left:45%;animation-delay:2s}.f6{left:92%;animation-delay:4s}
+@keyframes float{
+  0%{transform:translateY(110vh) rotate(0)}
+  50%{transform:translateY(50vh) translateX(35px) rotate(180deg)}
+  100%{transform:translateY(-15vh) translateX(-20px) rotate(360deg)}
+}
+
+/* OPENING */
+#opening{
+  position:fixed;inset:0;z-index:8000;background:var(--cream);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  transition:opacity 1.2s,transform 1.2s
+}
+.opening-inner{max-width:650px;padding:45px 25px;animation:appear 2s}
+@keyframes appear{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+.mono{font-family:"DM Mono",monospace;letter-spacing:4px;font-size:11px}
+.opening-inner h1{font-size:clamp(60px,12vw,120px);font-weight:500;line-height:.9;margin:12px 0}
+.lotus{font-size:65px;margin:25px;animation:bloom 3s ease infinite alternate}
+@keyframes bloom{to{transform:scale(1.08) rotate(3deg)}}
+.opening-line{width:120px;height:1px;background:var(--darkpink);margin:28px auto}
+.opening-message{font-size:19px;line-height:1.5;max-width:430px;margin:auto}
+.enter{margin-top:32px;padding:13px 28px;border:1px solid var(--darkpink);background:transparent;color:var(--darkpink);font:inherit;font-size:17px;cursor:pointer;transition:.35s}
+.enter:hover{background:var(--darkpink);color:white;transform:translateY(-3px)}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:17px;background:rgba(248,242,232,.93);backdrop-filter:blur(10px);border-bottom:1px solid #d9cec0}
+.nav a{text-decoration:none;color:var(--brown);font-size:14px}
+.nav a:hover{color:var(--darkpink)}
+
+section{position:relative;padding:110px 8%;min-height:70vh}
+.intro{text-align:center;margin-bottom:55px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;opacity:.7}
+.intro h2{font-size:clamp(45px,7vw,78px);font-weight:500;margin:8px 0}
+
+/* ABOUT */
+.about-paper{max-width:950px;margin:auto;background:var(--paper);padding:65px;box-shadow:0 25px 70px rgba(70,50,40,.12);transform:rotate(-.5deg)}
+.about-paper:before{content:"";position:absolute;inset:14px;border:1px solid #d9cbbc;pointer-events:none}
+.about-paper h2{font-size:62px;font-weight:500}
+.divider{color:var(--darkpink);margin:15px 0 35px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
+.photo{position:relative;background:white;padding:12px 12px 34px;box-shadow:0 10px 30px rgba(0,0,0,.12);transform:rotate(-4deg)}
+.photo img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.photo p{text-align:center;font-family:"Parisienne";font-size:22px;margin-top:8px}
+.tape{position:absolute;width:85px;height:25px;background:#d9a6ad99;top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg)}
+.writing{font-size:20px;line-height:1.7}
+.hand{font-family:"Parisienne";font-size:27px;color:var(--darkpink);margin-top:20px}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1100px;margin:auto}
+.card{background:#fffaf0d9;padding:38px 22px;text-align:center;border:1px solid #d9cec0;transition:.4s}
+.card:hover{transform:translateY(-8px) rotate(1deg)}
+.card span{font-size:34px}.card h3{font-size:25px;font-weight:500;margin:14px 0}
+
+/* SCRAPBOOK */
+#scrapbook{background:radial-gradient(circle,#eee2d2,var(--cream))}
+.book{position:relative;max-width:850px;height:610px;margin:auto;perspective:1800px}
+.page{position:absolute;inset:0;padding:60px;background:#fff9ec;border:1px solid #e1d2bf;box-shadow:0 20px 60px #3223192e;transform-origin:left center;transition:transform 1s,opacity .5s;opacity:0;z-index:1;overflow:hidden}
+.page.active{opacity:1;z-index:5}.page.flipped{transform:rotateY(-180deg)}
+.page h3{font-size:44px;font-weight:500;margin:10px 0 25px}.page-no{position:absolute;right:28px;top:23px}.date{font-family:"DM Mono";font-size:10px;letter-spacing:2px;opacity:.6}
+.main-photo{width:55%;margin:auto;background:white;padding:12px;box-shadow:0 8px 25px #0002;transform:rotate(-2deg)}
+.main-photo img{width:100%;height:270px;object-fit:cover}.caption{text-align:center;margin-top:12px}
+.lines{font-size:20px;line-height:2.4}.lines p{border-bottom:1px dashed #cbb8a5}
+.polaroid{width:240px;background:white;padding:11px 11px 28px;margin:auto;transform:rotate(-4deg);box-shadow:0 10px 25px #0002}
+.polaroid img{width:100%;height:215px;object-fit:cover}.polaroid p{text-align:center;font-family:"Parisienne";font-size:20px}
+.note{position:absolute;right:65px;top:170px;width:270px;font-size:17px;line-height:1.5}
+.letter{max-width:550px;margin:auto;font-size:19px;line-height:1.7}.signature{text-align:right;font-family:"Parisienne";font-size:28px;color:var(--darkpink)}
+.favs{display:grid;grid-template-columns:1fr 1fr;gap:18px}.favs div{border-bottom:1px dashed #cbb8a5;padding:12px;font-size:21px}
+.dreampaper{max-width:500px;margin:auto;font-size:21px;line-height:2.2}.stars{text-align:center;color:var(--darkpink);margin-top:35px}
+.two-photos{position:relative;height:340px}.small-polaroid{position:absolute;background:white;padding:10px 10px 25px;width:230px;box-shadow:0 10px 25px #0002}.small-polaroid img{width:100%;height:210px;object-fit:cover}.small-polaroid p{text-align:center}.left{left:18%;transform:rotate(-7deg)}.right{right:18%;transform:rotate(7deg)}
+.final-page{text-align:center;max-width:500px;margin:auto}.final-flower{font-size:70px}.final-page p{font-size:20px;line-height:1.6;margin:12px}
+.arrow{position:absolute;top:50%;z-index:30;width:50px;height:50px;border-radius:50%;border:1px solid var(--brown);background:#fffaf0;color:var(--brown);font-size:35px;cursor:pointer}.arrow:hover{background:var(--darkpink);color:white}
+.prev{left:-75px}.next{right:-75px}
+
+/* PHOTOS */
+.photo-wall{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:45px 28px}
+.wall{position:relative;background:white;padding:12px 12px 34px;box-shadow:0 10px 30px #32231926;transition:.4s}
+.wall:hover{transform:scale(1.04) rotate(0);z-index:5}.wall img{width:100%;aspect-ratio:1/1.15;object-fit:cover}.wall p{text-align:center;font-family:"Parisienne";font-size:22px;margin-top:7px}
+.a{transform:rotate(-4deg)}.b{transform:rotate(3deg)}.c{transform:rotate(-2deg)}.d{transform:rotate(4deg)}.e{transform:rotate(-3deg)}.f{transform:rotate(2deg)}
+
+/* STORIES */
+.stories{max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.story{background:#fffaf0;padding:42px 28px;min-height:300px;border:1px solid #e1d2bf;box-shadow:0 10px 30px #32231914;transition:.4s}.story:hover{transform:translateY(-8px)}.story-icon{display:block;font-size:35px;margin:18px 0}.story h3{font-size:29px;font-weight:500;margin-bottom:18px}.story p{font-size:18px;line-height:1.6}
+
+/* DREAMS */
+#dreams{background:linear-gradient(#414e3dc2,#414e3dc2),url("photo5.jpg") center/cover;color:white;text-align:center}.dreams-inner{max-width:800px;margin:auto}.dream-list{text-align:left;margin-top:40px}.dream-list div{padding:17px 0;border-bottom:1px solid #ffffff4d;font-size:22px}.dream-list span{font-family:"DM Mono";font-size:11px;margin-right:22px;opacity:.7}
+
+/* FINAL */
+.final{text-align:center;min-height:65vh;display:flex;flex-direction:column;align-items:center;justify-content:center}.final h2{font-size:clamp(45px,7vw,78px);font-weight:500}.final p{max-width:500px;font-size:20px;line-height:1.6;margin:8px}.final-sign{font-family:"Parisienne";font-size:45px;color:var(--darkpink);margin-top:25px}
+footer{text-align:center;padding:55px 20px 90px;border-top:1px solid #d9cec0}footer div{font-size:40px}
+
+@media(max-width:800px){
+  body:before{border-width:9px}.about-paper{padding:42px 24px}.about-grid{grid-template-columns:1fr;gap:40px}
+  .cards{grid-template-columns:1fr 1fr}.book{height:650px}.page{padding:42px 28px}.main-photo{width:80%}
+  .prev{left:5px}.next{right:5px}.photo-wall{grid-template-columns:1fr 1fr}.stories{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+  .cards,.photo-wall{grid-template-columns:1fr}.book{height:675px}.main-photo{width:90%}.note{position:static;width:auto;margin-top:20px}.favs{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="flower f1">✿</div><div class="flower f2">🌸</div>
+<div class="flower f3">❀</div><div class="flower f4">🪷</div>
+<div class="flower f5">🌷</div><div class="flower f6">✿</div>
+
+<!-- OPENING -->
+<div id="opening">
+  <div class="opening-inner">
+    <p class="mono">A LITTLE COLLECTION OF</p>
+    <h1>my little world</h1>
+    <div class="lotus">🪷</div>
+    <p class="mono">memories • dreams • stories • me</p>
+    <div class="opening-line"></div>
+    <p class="opening-message">Somewhere between yesterday and tomorrow, there is a little world that belongs only to me.</p>
+    <button class="enter" onclick="enterWebsite()">open my diary ♡</button>
+  </div>
+</div>
+
+<nav class="nav">
+  <div>🪷</div>
+  <a href="#about">about</a><a href="#scrapbook">diary</a><a href="#memories">memories</a>
+  <a href="#stories">stories</a><a href="#favorites">little loves</a><a href="#dreams">dreams</a>
+</nav>
+
+<section id="about">
+  <div class="about-paper">
+    <p class="eyebrow">let me introduce myself</p>
+    <h2>hello, it's me ♡</h2>
+    <div class="divider">✿ ───────── ✿</div>
+    <div class="about-grid">
+      <div class="photo"><div class="tape"></div><img src="aboutme.jpg" alt="A photo of me"><p>this is me ♡</p></div>
+      <div class="writing">
+        <p>Hi, I'm Riri.</p><br>
+        <p>Welcome to my little corner of the internet.</p><br>
+        <p>I wanted somewhere to keep the little things that make my life feel special — my memories, my favourite people, the things I love, the things I'm learning, and all the dreams I haven't reached yet.</p>
+        <p class="hand">"maybe the little things are actually the big things."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="intro"><p class="eyebrow">a few things about me</p><h2>little pieces of me</h2></div>
+  <div class="cards">
+    <div class="card"><span>🌸</span><h3>my personality</h3><p>Write a few words about what makes you, you.</p></div>
+    <div class="card"><span>🎧</span><h3>my soundtrack</h3><p>Songs that remind me of different parts of my life.</p></div>
+    <div class="card"><span>🧶</span><h3>things I enjoy</h3><p>Hobbies and little things I love doing.</p></div>
+    <div class="card"><span>🌙</span><h3>little comforts</h3><p>Things that make ordinary days feel special.</p></div>
+  </div>
+</section>
+
+<!-- SCRAPBOOK -->
+<section id="scrapbook">
+  <div class="intro"><p class="eyebrow">my diary</p><h2>pages from my life</h2><p>click the arrows to turn the pages ♡</p></div>
+  <div class="book">
+
+    <div class="page active">
+      <span class="page-no">01</span><p class="date">a page from my diary</p><h3>This is my story ♡</h3>
+      <div class="main-photo"><img src="photo1.jpg" alt="My memory"></div>
+      <p class="caption">one little moment I want to remember</p>
+      <p class="hand">keep the memories close...</p>
+    </div>
+
+    <div class="page">
+      <span class="page-no">02</span><p class="date">little facts</p><h3>Things that make me, me</h3>
+      <div class="lines">
+        <p>♡ something I love: __________________</p>
+        <p>♡ my favourite place: __________________</p>
+        <p>♡ something that makes me laugh: __________________</p>
+        <p>♡ a dream of mine: __________________</p>
+      </div>
+      <p class="hand">🌷</p>
+    </div>
+
+    <div class="page">
+      <span class="page-no">03</span><p class="date">memory no. 01</p><h3>A memory worth keeping</h3>
+      <div class="polaroid"><img src="photo2.jpg" alt="Memory"><p>write the date here</p></div>
+      <div class="note"><p>Dear diary,</p><br><p>Write the story behind this photograph here.</p><br><p>What happened? Who was there? Why does this moment matter to you?</p><p class="hand">I'll remember this one ♡</p></div>
+    </div>
+
+    <div class="page">
+      <span class="page-no">04</span><p class="date">a little letter</p><h3>Dear future me...</h3>
+      <div class="letter"><p>Dear future me,</p><br><p>I hope you're happy.</p><br><p>I hope you've grown into the person you dreamed you would become.</p><br><p>I hope you still notice the little beautiful things.</p><br><p>And most importantly, I hope you never forget the person who wrote this.</p><p class="signature">Love,<br>younger me ♡</p></div>
+    </div>
+
+    <div class="page">
+      <span class="page-no">05</span><p class="date">things I love</p><h3>My little favourites ♡</h3>
+      <div class="favs">
+        <div>🌸 flowers</div><div>🎧 music</div><div>📷 photography</div><div>🧶 crochet</div><div>🎀 pretty things</div><div>🌙 quiet nights</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <span class="page-no">06</span><p class="date">my dreams</p><h3>Things I hope for ✧</h3>
+      <div class="dreampaper"><p>♡ places I want to see</p><p>♡ things I want to experience</p><p>♡ things I want to learn</p><p>♡ things I want to accomplish</p><p>♡ the person I want to become</p></div>
+      <div class="stars">✦ ✧ ⋆ ✦ ⋆ ✧</div>
+    </div>
+
+    <div class="page">
+      <span class="page-no">07</span><p class="date">another memory</p><h3>captured in time 📷</h3>
+      <div class="two-photos">
+        <div class="small-polaroid left"><img src="photo3.jpg" alt="Memory"><p>♡</p></div>
+        <div class="small-polaroid right"><img src="photo4.jpg" alt="Memory"><p>a little moment</p></div>
+      </div>
+      <p class="hand">some moments deserve their own page.</p>
+    </div>
+
+    <div class="page">
+      <span class="page-no">08</span>
+      <div class="final-page"><div class="final-flower">🪷</div><p class="date">end of this chapter</p><h3>until the next page ♡</h3><p>This isn't the end of my story.</p><p>There are still so many memories to make, places to see, people to meet, and dreams to chase.</p><p class="hand">to be continued...</p></div>
+    </div>
+
+    <button class="arrow prev" onclick="previousPage()">‹</button>
+    <button class="arrow next" onclick="nextPage()">›</button>
+  </div>
+</section>
+
+<!-- MEMORIES -->
+<section id="memories">
+  <div class="intro"><p class="eyebrow">photographs</p><h2>little memories</h2><p>moments frozen in time</p></div>
+  <div class="photo-wall">
+    <div class="wall a"><div class="tape"></div><img src="photo1.jpg"><p>one of my favourites ♡</p></div>
+    <div class="wall b"><div class="tape"></div><img src="photo2.jpg"><p>a beautiful day</p></div>
+    <div class="wall c"><div class="tape"></div><img src="photo3.jpg"><p>remember this</p></div>
+    <div class="wall d"><div class="tape"></div><img src="photo4.jpg"><p>♡</p></div>
+    <div class="wall e"><div class="tape"></div><img src="photo5.jpg"><p>little things</p></div>
+    <div class="wall f"><div class="tape"></div><img src="photo6.jpg"><p>another chapter</p></div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section id="stories">
+  <div class="intro"><p class="eyebrow">written memories</p><h2>stories from my life</h2></div>
+  <div class="stories">
+    <article class="story"><span class="mono">01</span><span class="story-icon">🌷</span><h3>a memory I'll always keep</h3><p>Write about a memory that means something special to you.</p><p class="hand">add your own story here ♡</p></article>
+    <article class="story"><span class="mono">02</span><span class="story-icon">💌</span><h3>someone special</h3><p>Write about someone who has made your life a little brighter.</p></article>
+    <article class="story"><span class="mono">03</span><span class="story-icon">🌙</span><h3>something I learned</h3><p>Write about something life has taught you.</p></article>
+  </div>
+</section>
+
+<!-- FAVOURITES -->
+<section id="favorites">
+  <div class="intro"><p class="eyebrow">my favourites</p><h2>things I love ♡</h2></div>
+  <div class="cards">
+    <div class="card"><span>🌸</span><h3>flowers</h3><p>Add your favourite flowers here.</p></div>
+    <div class="card"><span>🎧</span><h3>music</h3><p>Add the songs that feel like you.</p></div>
+    <div class="card"><span>🧶</span><h3>hobbies</h3><p>The things I love spending time on.</p></div>
+    <div class="card"><span>🎀</span><h3>my aesthetic</h3><p>All the pretty little things I love.</p></div>
+  </div>
+</section>
+
+<!-- DREAMS -->
+<section id="dreams">
+  <div class="dreams-inner">
+    <p class="eyebrow">future me</p><h2>my little dreams ✧</h2><p>the things I'm still dreaming about...</p>
+    <div class="dream-list">
+      <div><span>01</span> places I want to visit</div>
+      <div><span>02</span> things I want to learn</div>
+      <div><span>03</span> memories I want to make</div>
+      <div><span>04</span> things I want to accomplish</div>
+      <div><span>05</span> the person I want to become</div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="final-flower">🪷</div>
+  <p class="eyebrow">the end... for now</p>
+  <h2>thank you for visiting ♡</h2>
+  <p>This little website is only one tiny piece of my story.</p>
+  <p>There are still so many pages waiting to be written.</p>
+  <p class="hand">until the next chapter...</p>
+  <div class="final-sign">♡ Riri ♡</div>
+</section>
+
+<footer><div>🪷</div><p>made with little memories, flowers & love</p></footer>
+
+<script>
+function enterWebsite(){
+  const opening=document.getElementById("opening");
+  opening.style.opacity="0";
+  opening.style.transform="scale(1.08)";
+  setTimeout(()=>{opening.style.display="none";document.getElementById("about").scrollIntoView({behavior:"smooth"})},1200);
+}
+
+let current=0;
+const pages=document.querySelectorAll(".page");
+
+function nextPage(){
+  if(current<pages.length-1){
+    pages[current].classList.remove("active");
+    pages[current].classList.add("flipped");
+    current++;
+    pages[current].classList.add("active");
+  }
+}
+function previousPage(){
+  if(current>0){
+    pages[current].classList.remove("active");
+    current--;
+    pages[current].classList.remove("flipped");
+    pages[current].classList.add("active");
+  }
+}
+
+/* sparkle animation */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.textContent=Math.random()>.5?"✦":"✧";
+  s.style.cssText=`position:fixed;z-index:9997;pointer-events:none;color:white;font-size:${8+Math.random()*15}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh`;
+  document.body.appendChild(s);
+  s.animate([{opacity:1,transform:"scale(.3)"},{opacity:0,transform:"scale(1.5) translateY(-30px)"}],{duration:1500});
+  setTimeout(()=>s.remove(),1500);
+},1000);
+
+/* swipe scrapbook on phone */
+let startX=0;
+document.querySelector(".book").addEventListener("touchstart",e=>startX=e.changedTouches[0].screenX);
+document.querySelector(".book").addEventListener("touchend",e=>{
+  const diff=startX-e.changedTouches[0].screenX;
+  if(Math.abs(diff)>50) diff>0?nextPage():previousPage();
+});
+</script>
+</body>
+</html>
